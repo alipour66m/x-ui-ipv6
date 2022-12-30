@@ -9,19 +9,6 @@ green(){ echo -e "\033[32m\033[01m$1\033[0m";}
 yellow(){ echo -e "\033[33m\033[01m$1\033[0m";}
 blue(){ echo -e "\033[36m\033[01m$1\033[0m";}
 white(){ echo -e "\033[37m\033[01m$1\033[0m";}
-
-red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-white "           
- ░██   ░██     ░██   ░██     ░██   ░██    ░██     ░██      ░██ ██ ██ 
- ░██  ░██      ░██  ░██      ░██  ░██      ░██   ░██      ░██    ░░██             
- ░██ ██        ░██ ██        ░██ ██         ░██ ░██      ░██         
- ░██ ██        ░██ ██        ░██ ██           ░██        ░██    ░██ ██ 
- ░██ ░██       ░██ ░██       ░██ ░██          ░██         ░██    ░░██
- ░██  ░░██     ░██  ░░██     ░██  ░░██        ░██          ░██ ██ ██ "
-red "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
-yellow "详细说明 https://github.com/kkkyg/x-ui-yg  YouTube频道：甬哥侃侃侃"   
-yellow "本项目将延续原x-ui更新：https://github.com/vaxilu/x-ui"
-
 sleep 3
 cur_dir=$(pwd)
 
@@ -125,14 +112,14 @@ install_x-ui() {
         last_version=$(curl -Ls "https://api.github.com/repos/kkkyg/x-ui-yg/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         echo -e "${green}检测到上游端 x-ui 最新版本：V${vaxilu_version}${plain}"
         echo -e "${green}开始安装当前 x-ui-yg 最新版本：V${last_version}${plain}"
-        wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz https://cdn.jsdelivr.net/gh/kkkyg/x-ui-yg/x-ui-linux-${arch}.tar.gz
+        wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz https://raw.githubusercontent.com/FireTable/x-ui-yg/main/x-ui-linux-${arch}.tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}下载 x-ui 失败，请确保你的服务器能够下载 Github 的文件${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://cdn.jsdelivr.net/gh/kkkyg/x-ui-yg/x-ui-linux-${arch}.tar.gz"
+        url="https://raw.githubusercontent.com/FireTable/x-ui-yg/main/x-ui-linux-${arch}.tar.gz"
         echo -e "开始安装 x-ui v$1"
         wget -N --no-check-certificate -O /usr/local/x-ui-linux-${arch}.tar.gz ${url}
         if [[ $? -ne 0 ]]; then
@@ -150,7 +137,7 @@ install_x-ui() {
     cd x-ui
     chmod +x x-ui bin/xray-linux-${arch}
     cp -f x-ui.service /etc/systemd/system/
-    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com//kkkyg/x-ui-yg/main/x-ui.sh
+    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/FireTable/x-ui-yg/main/x-ui.sh
     chmod +x /usr/bin/x-ui
     systemctl daemon-reload
     systemctl enable x-ui
